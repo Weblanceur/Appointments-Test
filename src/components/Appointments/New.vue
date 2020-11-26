@@ -6,24 +6,7 @@
                     sm8
                     offset-sm2
             >
-                <v-tabs
-                        grow
-                        class="elevation-2 mb-5"
-                        light
-                >
-                    <v-tab to="/new" router>
-                        <v-icon class="mr-2">mdi-plus</v-icon>
-                        New Appointment
-                    </v-tab>
-                    <v-tab
-                            disabled
-                            to="/confirm"
-                            router
-                    >
-                        <v-icon class="mr-2">mdi-archive</v-icon>
-                        Confirm & Save
-                    </v-tab>
-                </v-tabs>
+                <route-tabs/>
                 <h1 class="my-5">Add New Appointment</h1>
                 <v-form
                         ref="form"
@@ -57,7 +40,7 @@
                     <v-btn
                             color="grey"
                             class="mr-4"
-                            to="/"
+                            :to="{ name: 'MyAppointments' }"
                             dark
                     >
                         Back
@@ -82,9 +65,13 @@
 
 <script>
     import moment from 'moment';
+    import RouteTabs from "./Tabs";
 
     export default {
         name: "New",
+        components: {
+            RouteTabs
+        },
         data: () => ({
             valid: false,
             date: '',
@@ -108,7 +95,7 @@
                     note: this.note
                 });
                 if (this.$refs.form.validate()) {
-                    this.$router.push('/confirm');
+                    this.$router.push({name: 'Confirmation'});
                 }
             },
         },

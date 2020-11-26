@@ -6,23 +6,7 @@
                     sm8
                     offset-sm2
             >
-                <v-tabs
-                        grow
-                        class="elevation-2 mb-5"
-                        light
-                >
-                    <v-tab to="/new" router>
-                        <v-icon class="mr-2">mdi-plus</v-icon>
-                        New Appointment
-                    </v-tab>
-                    <v-tab
-                            to="/confirm"
-                            router
-                    >
-                        <v-icon class="mr-2">mdi-archive</v-icon>
-                        Confirm & Save
-                    </v-tab>
-                </v-tabs>
+                <route-tabs/>
                 <h1 class="my-5">Confirm New Appointment</h1>
                 <p><strong>*Date :</strong> {{ appointment.date ? appointment.date : 'none'}}</p>
                 <p><strong>*Full Name :</strong> {{ appointment.name ? appointment.name : 'none'}}</p>
@@ -37,7 +21,7 @@
                     <v-btn
                             color="grey"
                             class="mr-4"
-                            to="/new"
+                            :to="{ name: 'NewAppointment'}"
                             dark
                     >
                         Back
@@ -60,13 +44,18 @@
 </template>
 
 <script>
+    import RouteTabs from './Tabs';
+
     export default {
         name: "Confirmation",
+        components: {
+            RouteTabs
+        },
         methods: {
             createAppointment(appointment) {
                 this.$store.dispatch('createAppointment', appointment);
                 this.$store.dispatch('deleteTempAppointment');
-                this.$router.push('/');
+                this.$router.push({ name: 'MyAppointments' });
             }
         },
         computed: {
